@@ -171,12 +171,11 @@ A single payment transaction can also cover multiple programs.
 
 Example:
 
-```text
 Payment #001
 
 Aisyah
 ├── TK          Rp750.000
-└── Tahfidz     Rp300.000
+└── Mathematics Rp300.000
                  ─────────
 Total           Rp1.050.000
 
