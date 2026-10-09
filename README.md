@@ -15,8 +15,8 @@ This project is developed to simplify the daily operational and administrative p
 The system supports students who may enroll in **multiple programs simultaneously**, such as:
 
 - TK program in the morning
-- Cepat Baca Qur'an tutoring in the afternoon
-- Tahfidz tutoring in another schedule
+- Mathematics tutoring in the afternoon
+- English tutoring in another schedule
 
 Each enrollment is managed independently, including its attendance, status, billing period, and payment history.
 
@@ -59,12 +59,12 @@ Example:
 
 ```text
 Program
-└── CBQ
+└── Mathematics
 
 Classes
-├── CBQ A
-├── CBQ B
-└── CBQ C
+├── Mathematics A
+├── Mathematics B
+└── Mathematics C
 ```
 
 This allows one program to have multiple class groups with different teachers, rooms, and schedules.
@@ -78,11 +78,11 @@ Example:
 ```text
 Branch A — 16:15–17:15
 
-Room 1 → CBQ A → Teacher A
-Room 2 → Tahfidz A    → Teacher B
-Room 3 → Tilawah A  → Teacher C
-Room 4 → Tahfidz B → Teacher D
-Room 5 → CBQ B    → Teacher E
+Room 1 → Mathematics A → Teacher A
+Room 2 → English A    → Teacher B
+Room 3 → Calistung A  → Teacher C
+Room 4 → Mathematics B → Teacher D
+Room 5 → English B    → Teacher E
 ```
 
 The system prevents scheduling conflicts such as:
@@ -120,7 +120,7 @@ For tutoring students, the system can detect consecutive absences.
 Example:
 
 ```text
-CBQ Enrollment
+Mathematics Enrollment
 
 Session 1 → ALPA
 Session 2 → ALPA
@@ -137,8 +137,8 @@ Therefore:
 Aisyah
 
 TK          → ACTIVE
-CBQ → HIATUS
-Tahfidz     → ACTIVE
+Mathematics → HIATUS
+English     → ACTIVE
 ```
 
 When the student attends again:
@@ -171,6 +171,7 @@ A single payment transaction can also cover multiple programs.
 
 Example:
 
+```text
 Payment #001
 
 Aisyah
@@ -178,11 +179,13 @@ Aisyah
 └── Mathematics Rp300.000
                  ─────────
 Total           Rp1.050.000
+```
 
-8. Payment Receipt
+### 8. Payment Receipt
 
 After an administrator confirms a payment:
 
+```text
 Payment
    ↓
 Admin Confirmation
@@ -190,101 +193,81 @@ Admin Confirmation
 Generate Receipt
    ↓
 Send Receipt via WhatsApp
+```
 
 WhatsApp delivery status is tracked separately from payment status.
 
+```text
 Payment Status
 → PAID
 
 WhatsApp Status
 → SENT / FAILED
+```
 
 A failed WhatsApp delivery does not change the payment status.
 
-9. Financial Management
+### 9. Financial Management
 
 The system provides financial records for:
 
-Income
+- Income
+- Expenses
+- Payments
+- Outstanding bills
+- Branch-level financial reports
+- Date-based financial reports
+- Revenue and expense summaries
 
-Expenses
+### 10. Dashboard
 
-Payments
-
-Outstanding bills
-
-Branch-level financial reports
-
-Date-based financial reports
-
-Revenue and expense summaries
-
-10. Dashboard
-
-Super Admin
+#### Super Admin
 
 Can view data across all branches.
 
 Dashboard metrics may include:
 
-Total students
+- Total students
+- Active students
+- Hiatus students
+- Total teachers
+- Total branches
+- Revenue
+- Expenses
+- Outstanding payments
+- Attendance statistics
 
-Active students
-
-Hiatus students
-
-Total teachers
-
-Total branches
-
-Revenue
-
-Expenses
-
-Outstanding payments
-
-Attendance statistics
-
-Branch Admin
+#### Branch Admin
 
 Can only access data belonging to their assigned branch.
 
-Teacher
+#### Teacher
 
 Can access:
 
-Today's schedule
+- Today's schedule
+- Assigned classes
+- Student lists
+- Attendance
+- Attendance history
 
-Assigned classes
+---
 
-Student lists
+## 👥 User Roles
 
-Attendance
-
-Attendance history
-
-👥 User Roles
-
-Role
-
-Access
-
-SUPER_ADMIN
-
-All branches and system data
-
-ADMIN_CABANG
-
-Assigned branch
-
-GURU
-
-Assigned classes and attendance
+| Role | Access |
+|---|---|
+| `SUPER_ADMIN` | All branches and system data |
+| `ADMIN_CABANG` | Assigned branch |
+| `GURU` | Assigned classes and attendance |
 
 A parent/student portal may be added in a future version.
 
-🏗️ System Architecture
+---
 
+## 🏗️ System Architecture
+
+```text
 ┌─────────────────────┐
 │      React + Vite   │
 │      Tailwind CSS   │
@@ -302,47 +285,41 @@ A parent/student portal may be added in a future version.
 │        MySQL        │
 │      Database       │
 └─────────────────────┘
+```
 
-🛠️ Tech Stack
+---
 
-Frontend
+## 🛠️ Tech Stack
 
-React
+### Frontend
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- REST API
 
-Vite
+### Backend
+- Laravel
+- PHP
+- REST API
 
-Tailwind CSS
+### Database
+- MySQL
 
-React Router
+### Design
+- Figma
 
-REST API
+### Additional Integration
+- WhatsApp Business API / WhatsApp provider
+- PDF generation
 
-Backend
+---
 
-Laravel
-
-PHP
-
-REST API
-
-Database
-
-MySQL
-
-Design
-
-Figma
-
-Additional Integration
-
-WhatsApp Business API / WhatsApp provider
-
-PDF generation
-
-🗄️ Database Overview
+## 🗄️ Database Overview
 
 The planned database structure includes:
 
+```text
 users
 students
 parents
@@ -370,9 +347,11 @@ receipts
 expenses
 income_categories
 expense_categories
+```
 
-High-Level Relationship
+### High-Level Relationship
 
+```text
 BRANCH
  ├── ROOMS
  └── CLASSES
@@ -399,11 +378,15 @@ STUDENT
               │
               ▼
           WHATSAPP
+```
 
-📂 Project Structure
+---
 
-Frontend
+## 📂 Project Structure
 
+### Frontend
+
+```text
 frontend/
 ├── src/
 │   ├── components/
@@ -416,9 +399,11 @@ frontend/
 │   └── utils/
 ├── public/
 └── package.json
+```
 
-Backend
+### Backend
 
+```text
 backend/
 ├── app/
 │   ├── Models/
@@ -430,168 +415,117 @@ backend/
 ├── routes/
 ├── resources/
 └── composer.json
+```
 
-🚀 Development Roadmap
+---
 
-Phase 1 — Foundation
+## 🚀 Development Roadmap
 
-Project setup
+### Phase 1 — Foundation
+- [ ] Project setup
+- [ ] Database setup
+- [ ] Authentication
+- [ ] Role & permission system
 
-Database setup
+### Phase 2 — Master Data
+- [ ] Branch management
+- [ ] Room management
+- [ ] Teacher management
+- [ ] Student management
+- [ ] Program management
+- [ ] Class management
+- [ ] Schedule management
 
-Authentication
+### Phase 3 — Enrollment
+- [ ] Student enrollment
+- [ ] Multiple program enrollment
+- [ ] Enrollment status
+- [ ] Status history
 
-Role & permission system
+### Phase 4 — Attendance
+- [ ] Class attendance sessions
+- [ ] Student attendance
+- [ ] Teacher attendance
+- [ ] Consecutive absence detection
+- [ ] Automatic hiatus
+- [ ] Reactivation
 
-Phase 2 — Master Data
+### Phase 5 — Finance
+- [ ] Billing periods
+- [ ] Payment management
+- [ ] Payment history
+- [ ] Income management
+- [ ] Expense management
+- [ ] Financial reports
 
-Branch management
+### Phase 6 — Receipt & WhatsApp
+- [ ] Receipt generation
+- [ ] PDF receipt
+- [ ] WhatsApp integration
+- [ ] WhatsApp delivery status
 
-Room management
+### Phase 7 — Dashboard & Reports
+- [ ] Super admin dashboard
+- [ ] Branch dashboard
+- [ ] Teacher dashboard
+- [ ] Attendance reports
+- [ ] Financial reports
+- [ ] Outstanding payment reports
+- [ ] Data export
 
-Teacher management
+---
 
-Student management
-
-Program management
-
-Class management
-
-Schedule management
-
-Phase 3 — Enrollment
-
-Student enrollment
-
-Multiple program enrollment
-
-Enrollment status
-
-Status history
-
-Phase 4 — Attendance
-
-Class attendance sessions
-
-Student attendance
-
-Teacher attendance
-
-Consecutive absence detection
-
-Automatic hiatus
-
-Reactivation
-
-Phase 5 — Finance
-
-Billing periods
-
-Payment management
-
-Payment history
-
-Income management
-
-Expense management
-
-Financial reports
-
-Phase 6 — Receipt & WhatsApp
-
-Receipt generation
-
-PDF receipt
-
-WhatsApp integration
-
-WhatsApp delivery status
-
-Phase 7 — Dashboard & Reports
-
-Super admin dashboard
-
-Branch dashboard
-
-Teacher dashboard
-
-Attendance reports
-
-Financial reports
-
-Outstanding payment reports
-
-Data export
-
-🔐 Business Rules
+## 🔐 Business Rules
 
 Some important business rules:
 
-A student can have multiple active enrollments.
+1. A student can have multiple active enrollments.
+2. Enrollment status belongs to the **enrollment**, not the student.
+3. A student can attend different programs at different branches.
+4. A teacher can teach at multiple branches.
+5. A teacher cannot teach two classes at the same time.
+6. A room cannot be occupied by two classes at the same time.
+7. Attendance is recorded based on a class session.
+8. Consecutive absences are evaluated per enrollment/class.
+9. Hiatus affects only the related enrollment.
+10. Reactivation occurs when a student attends again after being on hiatus.
+11. Payment date and billing period start date are separate concepts.
+12. One payment transaction can cover multiple billing items.
+13. Payment must be confirmed by an administrator before being marked as `PAID`.
+14. WhatsApp delivery failure does not invalidate a confirmed payment.
 
-Enrollment status belongs to the enrollment, not the student.
+---
 
-A student can attend different programs at different branches.
+## 👨‍💻 Development Team
 
-A teacher can teach at multiple branches.
+This project is developed collaboratively with a **Frontend/UI Developer** and **Backend Developer**.
 
-A teacher cannot teach two classes at the same time.
+### Frontend / UI
+- React
+- Vite
+- Tailwind CSS
+- Figma
+- API Integration
 
-A room cannot be occupied by two classes at the same time.
+### Backend
+- Laravel
+- PHP
+- MySQL
+- REST API
+- Business Logic
+- Authentication & Authorization
 
-Attendance is recorded based on a class session.
+---
 
-Consecutive absences are evaluated per enrollment/class.
+## 📌 Project Status
 
-Hiatus affects only the related enrollment.
-
-Reactivation occurs when a student attends again after being on hiatus.
-
-Payment date and billing period start date are separate concepts.
-
-One payment transaction can cover multiple billing items.
-
-Payment must be confirmed by an administrator before being marked as PAID.
-
-WhatsApp delivery failure does not invalidate a confirmed payment.
-
-👨‍💻 Development Team
-
-This project is developed collaboratively with a Frontend/UI Developer and Backend Developer.
-
-Frontend / UI
-
-React
-
-Vite
-
-Tailwind CSS
-
-Figma
-
-API Integration
-
-Backend
-
-Laravel
-
-PHP
-
-MySQL
-
-REST API
-
-Business Logic
-
-Authentication & Authorization
-
-📌 Project Status
-
-Currently in development.
+> **Currently in development.**
 
 The database architecture, business rules, UI/UX design, and API contracts are being developed before full implementation.
 
-📄 License
+---
+
+## 📄 License
 
 This project is currently intended for internal/educational use.
 
